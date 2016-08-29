@@ -70,7 +70,7 @@ Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView�
 1. ContentProvider：一般是成熟的App暴露自己的数据，其他app可以获取到数据，数据本身不是实时的，而前面三种是实时的数据
 
 ### Android中最常用的设计模式
-- . 单例模式：确保一个类只有一个实例，并且自行实例化并向整个系统提供整个实例	
+- 单例模式：确保一个类只有一个实例，并且自行实例化并向整个系统提供整个实例	
  	- 对于那些耗内存的类，只实例化一次，大大提高性能，尤其是移动开发中程序运行中，始终保持只有一个实例在内存中
  	
 			public class ActivityManager {  
@@ -111,7 +111,7 @@ Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView�
 			        android.os.Process.killProcess(android.os.Process.myPid());  
 			    }  
 			}
-- . Builder 模式:将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
+- Builder 模式:将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
  
 	-- 定义一个静态内部类Builder，内部成员变量跟外部一样
 
@@ -204,12 +204,39 @@ Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView�
         .weight(67.4)  
         .build();  
 	
-- . 观察者模式：定义对象间的一种一对多的依赖关系，当一个对象的状态发送改变时，所有依赖于它的对象都能得到通知并被自动更新
+- 观察者模式：定义对象间的一种一对多的依赖关系，当一个对象的状态发送改变时，所有依赖于它的对象都能得到通知并被自动更新
+
+	被观察者：
+
+			public class Observable<T> {  
+			    List<Observer<T>> mObservers = new ArrayList<Observer<T>>();  
+			  
+			    public void register(Observer<T> observer) {  
+			        if (observer == null) {  
+			            throw new NullPointerException("observer == null");  
+			        }  
+			        synchronized (this) {  
+			            if (!mObservers.contains(observer))  
+			                mObservers.add(observer);  
+			        }  
+			    }  
+			  
+			    public synchronized void unregister(Observer<T> observer) {  
+			        mObservers.remove(observer);  
+			    }  
+			  
+			    public void notifyObservers(T data) {  
+			        for (Observer<T> observer : mObservers) {  
+			            observer.onUpdate(this, data);  
+			        }  
+			    }  
+			  
+			}  
 
 
 
+- 策略模式：策略模式定义了一系列算法，并将每一个算法封装起来，而且使他们可以相互替换，策略模式让算法独立于使用的客户而独立改变
+- 原型模式：用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。
+### Android 中的动画种类 ###
 
-
-- . 策略模式：策略模式定义了一系列算法，并将每一个算法封装起来，而且使他们可以相互替换，策略模式让算法独立于使用的客户而独立改变
-- . 原型模式：用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。
 
