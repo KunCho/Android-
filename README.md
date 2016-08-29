@@ -70,4 +70,148 @@ Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView�
 1. ContentProvider：一般是成熟的App暴露自己的数据，其他app可以获取到数据，数据本身不是实时的，而前面三种是实时的数据
 
 ### Android中最常用的设计模式
+- . 单例模式：确保一个类只有一个实例，并且自行实例化并向整个系统提供整个实例	
+ 	- 对于那些耗内存的类，只实例化一次，大大提高性能，尤其是移动开发中程序运行中，始终保持只有一个实例在内存中
+ 	
+			public class ActivityManager {  
+			  
+			    private static volatile ActivityManager instance;  
+			    private Stack<Activity> mActivityStack = new Stack<Activity>();  
+			      
+			    private ActivityManager(){  
+			          
+			    }  
+			      
+			    public static ActivityManager getInstance(){  
+			        if (instance == null) {  
+			        synchronized (ActivityManager.class) {  
+			            if (instance == null) {  
+			                instance = new ActivityManager();  
+			            }  
+			        }  
+			        return instance;  
+			    }  
+			      
+			    public void addActicity(Activity act){  
+			        mActivityStack.push(act);  
+			    }  
+			      
+			    public void removeActivity(Activity act){  
+			        mActivityStack.remove(act);  
+			    }  
+			      
+			    public void killMyProcess(){  
+			        int nCount = mActivityStack.size();  
+			        for (int i = nCount - 1; i >= 0; i--) {  
+			            Activity activity = mActivityStack.get(i);  
+			            activity.finish();  
+			        }  
+			          
+			        mActivityStack.clear();  
+			        android.os.Process.killProcess(android.os.Process.myPid());  
+			    }  
+			}
+- . Builder 模式:将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
  
+	-- 定义一个静态内部类Builder，内部成员变量跟外部一样
+
+	-- Builder通过一系列方法给成员变量赋值，并返回当前对象（this）
+
+	-- Builder类内部提供一个build方法方法或者create方法用于创建对应的外部类，该方法内部调用了外部类的一个私有化构造方法，该构造方法的参数就是内部类Builder
+
+	-- 外部类提供一个私有化的构造方法供内部类调用，在该构造函数中完成成员变量的赋值
+
+			public class Person {  
+		    private String name;  
+		    private int age;  
+		    private double height;  
+		    private double weight;  
+		  
+		    privatePerson(Builder builder) {  
+		        this.name=builder.name;  
+		        this.age=builder.age;  
+		        this.height=builder.height;  
+		        this.weight=builder.weight;  
+		    }  
+		    public String getName() {  
+		        return name;  
+		    }  
+		  
+		    public void setName(String name) {  
+		        this.name = name;  
+		    }  
+		  
+		    public int getAge() {  
+		        return age;  
+		    }  
+		  
+		    public void setAge(int age) {  
+		        this.age = age;  
+		    }  
+		  
+		    public double getHeight() {  
+		        return height;  
+		    }  
+		  
+		    public void setHeight(double height) {  
+		        this.height = height;  
+		    }  
+		  
+		    public double getWeight() {  
+		        return weight;  
+		    }  
+		  
+		    public void setWeight(double weight) {  
+		        this.weight = weight;  
+		    }  
+		  
+		    static class Builder{  
+		        private String name;  
+		        private int age;  
+		        private double height;  
+		        private double weight;  
+		        public Builder name(String name){  
+		            this.name=name;  
+		            return this;  
+		        }  
+		        public Builder age(int age){  
+		            this.age=age;  
+		            return this;  
+		        }  
+		        public Builder height(double height){  
+		            this.height=height;  
+		            return this;  
+		        }  
+		  
+		        public Builder weight(double weight){  
+		            this.weight=weight;  
+		            return this;  
+		        }  
+		  
+		        public Person build(){  
+		            return new Person(this);  
+		        }  
+		    }  
+		}  
+	从上边代码我们可以看到我们在Builder类中定义了一份跟Person类一样的属性，通过一系列的成员函数进行赋值，但是返回的都是this,最后提供了一个build函数来创建person对象，对应的在Person的构造函数中，传入了Builder对象，然后依次对自己的成员变量进行赋值。此外，Builder的成员函数返回的都是this的另一个作用就是让他支持链式调用，使代码可读性大大增强。
+	于是我们就可以这样创建Person对象：
+
+		Person.Builder builder=new Person.Builder();  
+		Person person=builder  
+        .name("张三")  
+        .age(18)  
+        .height(178.5)  
+        .weight(67.4)  
+        .build();  
+	
+- . 观察者模式：定义对象间的一种一对多的依赖关系，当一个对象的状态发送改变时，所有依赖于它的对象都能得到通知并被自动更新
+
+
+
+
+
+- . uuyuy
+- . gytyu
+- . yt
+- . 
+
