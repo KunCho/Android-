@@ -1,4 +1,4 @@
-# Android-
+# Android-知识整理
 ### Activity的生命周期与fragment的生命周期 ###
 ![](http://img.my.csdn.net/uploads/201211/29/1354170682_3824.png) ![](http://img.my.csdn.net/uploads/201211/29/1354170699_6619.png)
 ### ListView布局之View复用原理 ###
@@ -8,7 +8,7 @@ ListView的父类AbsList中有一个变量：
     * The data set used to store unused views that should be reused during the next layout 
     * to avoid creating new ones 
     */  
-   final RecycleBin mRecycler = new RecycleBin(); ```
+	final RecycleBin mRecycler = new RecycleBin(); 
 
 注释的意思上用一个数据集来存储应当在下一个布局重用的View，避免重新创建新的布局。这个对象应该就是对我们缓存管理的核心类了。
 
