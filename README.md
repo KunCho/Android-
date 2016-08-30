@@ -238,5 +238,17 @@ Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView�
 - 策略模式：策略模式定义了一系列算法，并将每一个算法封装起来，而且使他们可以相互替换，策略模式让算法独立于使用的客户而独立改变
 - 原型模式：用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。
 ### Android 中的动画种类 ###
+Android动画主要包含补间动画（Tween）View Animation、帧动画（Frame）Drawable Animation、以及属性动画Property Animation。
 
+- Tween动画，通过对View的内容进行一系列的图形变换 (包括平移、缩放、旋转、改变透明度)来实现动画效果。动画效果的定义可以采用XML来做也可以采用编码来做。
 
+		| 动画类型              | 编码定义动画使用的类     | 
+		| -------------------  |:----------------------:|
+		| 渐变透明度动画效果     | AlphaAnimation         |
+		| 渐变尺寸缩放动画效果   | ScaleAnimation         |  
+		| 画面位置移动动画效果   | TranslateAnimation     |   
+		| 画面旋转动画效果      | RotateAnimation       |
+
+- Frame动画，即顺序播放事先做好的图像，跟放胶片电影类似。
+
+- 属性动画 
