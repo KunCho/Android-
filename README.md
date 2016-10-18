@@ -1,5 +1,6 @@
 # Android-知识整理
 ### Activity的生命周期与fragment的生命周期 ###
+在Fragment 中onCreateView是创建的时候调用，onViewCreated是在onCreateView后被触发的事件，前后关系。
 ![](http://img.my.csdn.net/uploads/201211/29/1354170682_3824.png) ![](http://img.my.csdn.net/uploads/201211/29/1354170699_6619.png)
 ### ListView布局之View复用原理 ###
 ListView的父类AbsList中有一个变量：
