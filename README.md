@@ -13,8 +13,6 @@ ListView的父类AbsList中有一个变量：
 
 注释的意思上用一个数据集来存储应当在下一个布局重用的View，避免重新创建新的布局。这个对象应该就是对我们缓存管理的核心类了。
 
-注释的意思上用一个数据集来存储应当在下一个布局重用的View，避免重新创建新的布局。这个对象应该就是对我们缓存管理的核心类了。
-
 如果数据发生变化则把当前的ItemView放入ScrapViews中，否则把当前显示的ItemView放入ActiveViews中。
 
 Android提供了一个叫做Recycler(反复循环)的构件，就是当ListView的Item从滚出屏幕视角之外，对应Item的View会被缓存到Recycler中，相应的会从生成一个Item，而此时调用的getView中的convertView参数就是滚出屏幕的缓存Item的View，所以说如果能重用这个convertView，就会大大改善性能。
